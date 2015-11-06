@@ -1,13 +1,63 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="df3434fe-adb7-408e-905f-0cc9c4a3c801" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+    <list default="true" id="df3434fe-adb7-408e-905f-0cc9c4a3c801" name="Default" comment="removed all and added with git ignore">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/codeStyleSettings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/hft_tls_crawler.iml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/hft_tls_crawler.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/input_worker.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/queue_manager.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/queue_server.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/result_worker.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/settings.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/.gitattributes" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/AUTHORS.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/CHANGELOG.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/LICENSE.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/PluginBase.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/PluginCertInfo.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/PluginChromeSha1Deprecation.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/PluginCompression.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/PluginHSTS.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/PluginHeartbleed.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/PluginOpenSSLCipherSuites.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/PluginSessionRenegotiation.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/PluginSessionResumption.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/data/trust_stores/apple.pem" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/data/trust_stores/google.pem" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/data/trust_stores/java.pem" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/data/trust_stores/microsoft.pem" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/plugins/data/trust_stores/mozilla.pem" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/setup.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/setup_py2exe.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/sslyze.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/test/https_test.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/test/smtp_test.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/test/starttls_test.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/test/top100.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/test/top1000.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/test/top100china.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/test/xmpp_test.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/utils/CommandLineParser.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/utils/HTTPResponseParser.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/utils/SSLyzeSSLConnection.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/utils/ServersConnectivityTester.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/utils/ThreadPool.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/utils/__init__.py" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze/xml_out.xsd" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/sslyze_worker.py" afterPath="" />
     </list>
-    <ignored path="hft_tls_crawler.iws" />
-    <ignored path=".idea/workspace.xml" />
-    <ignored path=".idea/dataSources.local.xml" />
     <ignored mask="*.pyc" />
+    <ignored path=".idea/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -103,6 +153,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -124,11 +175,10 @@
         </subPane>
       </pane>
       <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/.idea" />
     <property name="settings.editor.selected.configurable" value="project.propVCSSupport.Ignored.Files" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="recentsLimit" value="5" />
@@ -282,6 +332,12 @@
       <method />
     </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <pass-parent-envs>true</pass-parent-envs>
+      <envs />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Attests">
@@ -433,19 +489,19 @@
     <frame x="-1" y="27" width="1368" height="742" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16616315" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.168429" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32840723" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32733223" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -480,7 +536,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -488,7 +543,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -559,7 +613,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.1858864">
           <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -567,7 +620,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.030981068">
           <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
