@@ -1,5 +1,0 @@
-# These files are text and should be normalized (convert crlf => lf)
-*.py      text   diff=python
-*.pem     text
-*.txt     text
-*.md      text
