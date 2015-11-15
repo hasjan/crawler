@@ -32,17 +32,19 @@ class QueueServer(BaseManager):
     # Method for getting one url-object
     def getURl(self):
         if not user_queue.empty():
-            return user_queue._get()
+            return user_queue.get()
 
         return host_queue.get()
 
+    #Will empty the server_queue
     def empty_queue(self):
         # two possibilities: emptying with a loop or garbage collection
         #host_queue = Queue()
         while(not host_queue.empty()):
             host_queue.get()
 
-    def putNewList(self, *newList):
+    def useNewList(self,*newList):
+        self.empty_queue()
         for item in newList:
             host_queue.put(item)
 
