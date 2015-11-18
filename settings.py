@@ -5,6 +5,12 @@ HOST_QUEUE_TIMEOUT = 30
 
 NUMBER_PROCESSES = 1
 
+SERVER_ADDRESS = 'localhost'
+SERVER_PORT = 50001
+SERVER_AUTH = b'abc'
+
+
+
 COMMAND_LIST = [
     # "reneg",
     "tlsv1_2",

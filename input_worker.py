@@ -9,10 +9,11 @@ if __name__ == "__main__":
     c = QueueClient()
 
     # get appropriate queue from QueueClient
-    host_queue = c.host_queue()
+    host_queue = c.queue_manager()
+    print host_queue
 
-    for i in range(20):
-        # put hostname to host_queue
-        host_queue.put("google.com")
+    # for i in range(20):
+    #     # put hostname to host_queue
+    #     host_queue.put("google.com")
 
 
