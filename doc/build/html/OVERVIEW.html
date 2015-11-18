@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Overview &mdash; hft_tls_crawler 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="hft_tls_crawler 0.1 documentation" href="index.html" />
+    <link rel="next" title="Usage" href="USAGE.html" />
+    <link rel="prev" title="Welcome to HFT_Tls_Crawler’s documentation!" href="index.html" /> 
+  </head>
+  <body role="document">
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="USAGE.html" title="Usage"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to HFT_Tls_Crawler’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">hft_tls_crawler 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="overview">
+<h1>Overview<a class="headerlink" href="#overview" title="Permalink to this headline">¶</a></h1>
+<p>There are several modules, which working separately from each other:</p>
+<ul>
+<li><dl class="first docutils">
+<dt><a class="reference internal" href="queue_manager.html#module-queue_manager" title="queue_manager"><code class="xref py py-mod docutils literal"><span class="pre">queue_manager</span></code></a> module</dt>
+<dd><p class="first last">manage (hostname, source) and result</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><a class="reference internal" href="input_worker.html#module-input_worker" title="input_worker"><code class="xref py py-mod docutils literal"><span class="pre">input_worker</span></code></a> module</dt>
+<dd><p class="first last">responsible for putting (hostname, source) to the manager</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><a class="reference internal" href="sslyze_worker.html#module-sslyze_worker" title="sslyze_worker"><code class="xref py py-mod docutils literal"><span class="pre">sslyze_worker</span></code></a> module</dt>
+<dd><p class="first last">getting hostname from manager, analyze the SSL configuration of the server and putting result to the manager</p>
+</dd>
+</dl>
+</li>
+<li><dl class="first docutils">
+<dt><a class="reference internal" href="result_worker.html#module-result_worker" title="result_worker"><code class="xref py py-mod docutils literal"><span class="pre">result_worker</span></code></a> module</dt>
+<dd><p class="first last">getting (result, source) from manager, format it and make it persistent</p>
+</dd>
+</dl>
+</li>
+</ul>
+<div class="line-block">
+<div class="line"><br /></div>
+<div class="line">It is still not clear to you how it works? Lets see the graph:</div>
+<div class="line"><br /></div>
+<div class="line"><br /></div>
+</div>
+<div class="highlight-python"><div class="highlight"><pre>                   +------------------+
+                   |                  |
+                   |   INPUT WORKER   |
+                   |                  |
+                   +-------+----------+
+                           |
+                           | Hostname, Source
+                           v
+
+                   +------------------+
+                   |                  |   Hostname       +------------------+
+                   |  QUEUE MANAGER   +----------------&gt; |                  |
+                   |                  |                  |  SSLYZE WORKER   |
+                   |     SERVER       | &lt;----------------+                  |
+                   |                  |       Result     +------------------+
+                   +--------+---------+
+                            |
+                            | Result, Source
++-------+                   v
+|       |
+| Mongo |          +------------------+
+|       |          |                  |
+|  DB   | &lt;--------+  RESULT WORKER   |
+|       |          |                  |
++-------+          +------------------+
+</pre></div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to HFT_Tls_Crawler&#8217;s documentation!</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="USAGE.html"
+                        title="next chapter">Usage</a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="USAGE.html" title="Usage"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to HFT_Tls_Crawler’s documentation!"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">hft_tls_crawler 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &copy; Copyright 2015, dhoeyng.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.3.1.
+    </div>
+  </body>
+</html>
