@@ -145,7 +145,7 @@ class QueueServer(BaseManager):
     The QueueServer ...
     """
     def __init__(self):
-        self.register('queue_manager', callable=QueueManager())
+        self.register('queue_manager', callable=lambda: QueueManager())
         BaseManager.__init__(self, address=(settings.SERVER_ADDRESS, settings.SERVER_PORT),
                              authkey=settings.SERVER_AUTH)
 
