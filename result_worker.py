@@ -8,11 +8,13 @@ if __name__ == "__main__":
     c = QueueClient()
 
     # get appropriate queue from QueueClient
-    result_queue = c.result_queue()
+    qm = c.queue_manager()
 
     while True:
-        result = result_queue.get()
+        result = qm.next_result()
 
+        print(result.keys())
         # do something with result ...
+        print(result["target"])
         print(result)
 

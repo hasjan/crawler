@@ -9,11 +9,24 @@ if __name__ == "__main__":
     c = QueueClient()
 
     # get appropriate queue from QueueClient
-    host_queue = c.queue_manager()
-    print host_queue
+    qm = c.queue_manager()
 
-    # for i in range(20):
-    #     # put hostname to host_queue
-    #     host_queue.put("google.com")
+
+    qm.put_new_list(
+        [
+            [
+                "google.com", ["alexa-top-1m"],
+            ],
+
+            [
+                "facebook.com", ["alexa-top-1m"],
+            ],
+
+            [
+                "sadsafcsdsadsa.com", ["alexa-top-1m"],
+            ]
+        ]
+    )
+
 
 

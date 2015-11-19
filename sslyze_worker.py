@@ -44,7 +44,7 @@ class WorkerProcess(Process):
                 break
 
             target = self._test_server(hostname)
-            result_dict = ((hostname, None, None), [])
+
             if target:
                 result_dict = dict(target=target, result=[])
 
@@ -52,7 +52,7 @@ class WorkerProcess(Process):
                     result = self._process_command(target, command)
                     result_dict["result"].append(result.get_raw_result())
 
-            self._qm.put_result(result_dict)
+                self._qm.put_result(result_dict)
 
     def _process_command(self, target, command):
             plugin_instance = self.available_commands[command]()
@@ -66,7 +66,8 @@ class WorkerProcess(Process):
         try:
             target = ServersConnectivityTester._test_server(hostname, settings.SHARED_SETTINGS)
         except InvalidTargetError as e:
-            self._qm.put_result(((hostname, None, None, None), None, e.get_error_txt()))
+            result_dict = dict(target=(hostname, None, None), result=e.get_error_txt())
+            self._qm.put_result(result_dict)
             return
         return target
 
