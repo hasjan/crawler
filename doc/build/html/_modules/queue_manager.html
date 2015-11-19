@@ -57,7 +57,7 @@
 <span class="sd">The server bind to address and port, which are specified in :mod:`settings`.</span>
 <span class="sd">    ::</span>
 
-<span class="sd">        $python queue_manager.py</span>
+<span class="sd">        $ python queue_manager.py</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">multiprocessing.managers</span> <span class="kn">import</span> <span class="n">BaseManager</span>
@@ -80,14 +80,13 @@
 <span class="sd">            and get an instance of this class.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">host_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">user_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">result_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_host_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_user_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_result_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
 
-        <span class="bp">self</span><span class="o">.</span><span class="n">host_source_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_host_source_dict</span> <span class="o">=</span> <span class="p">{}</span>
 
-
-
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="mi">0</span>
 
 <div class="viewcode-block" id="QueueManager.next_host"><a class="viewcode-back" href="../queue_manager.html#queue_manager.QueueManager.next_host">[docs]</a>    <span class="k">def</span> <span class="nf">next_host</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
@@ -95,42 +94,76 @@
 
 <span class="sd">        :return str: hostname e.g. &quot;google.com&quot;</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
-            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">user_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_queue</span><span class="o">.</span><span class="n">empty</span><span class="p">():</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_user_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
 
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">host_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="c"># cycle queue and keep track by counting</span>
+        <span class="n">hostname</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_host_queue</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_host_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">hostname</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">+=</span> <span class="mi">1</span>
+        <span class="k">return</span> <span class="n">hostname</span>
 </div>
 <div class="viewcode-block" id="QueueManager.empty_queue"><a class="viewcode-back" href="../queue_manager.html#queue_manager.QueueManager.empty_queue">[docs]</a>    <span class="k">def</span> <span class="nf">empty_queue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Empty entire queue.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">            .. note::</span>
 
+<span class="sd">                *use this function with care*. it will empty the whole host_queue.</span>
+<span class="sd">                even if the host_queue has not finished yet.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="c"># two possibilities: emptying with a loop or garbage collection</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">host_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_host_source_dict</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_host_queue</span> <span class="o">=</span> <span class="n">Queue</span><span class="p">()</span>
+</div>
+<div class="viewcode-block" id="QueueManager.put_user_list"><a class="viewcode-back" href="../queue_manager.html#queue_manager.QueueManager.put_user_list">[docs]</a>    <span class="k">def</span> <span class="nf">put_user_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_list</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">        :param list user_list:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># TODO</span>
+        <span class="k">pass</span>
 </div>
 <div class="viewcode-block" id="QueueManager.put_new_list"><a class="viewcode-back" href="../queue_manager.html#queue_manager.QueueManager.put_new_list">[docs]</a>    <span class="k">def</span> <span class="nf">put_new_list</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">new_list</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Empty and refill the queue</span>
+<span class="sd">        Empty and refill the queue.</span>
 
 <span class="sd">        :param list new_list: nested list with hostname and source e.g. [ [&quot;google.com&quot;, [&quot;alexa-top-1m&quot;, ] ], ]</span>
 <span class="sd">        &quot;&quot;&quot;</span>
+        <span class="c"># queue is not even through ?</span>
+        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_host_queue</span><span class="o">.</span><span class="n">queue</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span><span class="p">:</span>
+            <span class="k">return</span>
+
         <span class="bp">self</span><span class="o">.</span><span class="n">empty_queue</span><span class="p">()</span>
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">new_list</span><span class="p">:</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">host_source_dict</span><span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">host_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_host_source_dict</span><span class="p">[</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">=</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_host_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
 </div>
 <div class="viewcode-block" id="QueueManager.next_result"><a class="viewcode-back" href="../queue_manager.html#queue_manager.QueueManager.next_result">[docs]</a>    <span class="k">def</span> <span class="nf">next_result</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Getting next result from result_queue.</span>
 
 <span class="sd">        :return tuple: ({sslyze result}, [source,])</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">()</span>
-        <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">host_source_dict</span><span class="p">[</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+        <span class="k">return</span> <span class="n">res</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_host_source_dict</span><span class="p">[</span><span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]]</span>
+</div>
+<div class="viewcode-block" id="QueueManager.put_result"><a class="viewcode-back" href="../queue_manager.html#queue_manager.QueueManager.put_result">[docs]</a>    <span class="k">def</span> <span class="nf">put_result</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Putting result to result_queue.</span>
+
+<span class="sd">        :param result:</span>
+<span class="sd">        :return:</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_result_queue</span><span class="o">.</span><span class="n">put</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
 
 </div></div>
 <div class="viewcode-block" id="QueueClient"><a class="viewcode-back" href="../queue_manager.html#queue_manager.QueueClient">[docs]</a><span class="k">class</span> <span class="nc">QueueClient</span><span class="p">(</span><span class="n">BaseManager</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    This class is used to connect QueueServer. If you instantiate this class it will auto connect to the server.</span>
+<span class="sd">    This class is used to connect to QueueServer.</span>
+
+<span class="sd">    If you instantiate this class it will auto connect to the server.</span>
 <span class="sd">    So you can get an instance by name of each registered object.</span>
 
 <span class="sd">    :Example:</span>
@@ -140,8 +173,12 @@
 <span class="sd">        from queue_manager import QueueClient</span>
 
 <span class="sd">        c = QueueClient()</span>
-<span class="sd">        obj = c.queue_manger()</span>
-<span class="sd">        # do something with ...</span>
+
+<span class="sd">        # registered name is &quot;queue_manager&quot; , so you can call it to get</span>
+<span class="sd">        # the instance of QueueManager class.</span>
+<span class="sd">        queue_manager = c.queue_manger()</span>
+
+<span class="sd">        # do something with queue_manager ...</span>
 
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">address</span><span class="o">=</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SERVER_ADDRESS</span><span class="p">,</span> <span class="n">settings</span><span class="o">.</span><span class="n">SERVER_PORT</span><span class="p">),</span>
