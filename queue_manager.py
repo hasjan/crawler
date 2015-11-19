@@ -39,6 +39,9 @@ class QueueManager(object):
 
         self._counter = 0
 
+    def __call__(self, *args, **kwargs):
+        return self
+
     def next_host(self):
         """
         Getting next hostname of the appropriate queue.
@@ -83,7 +86,7 @@ class QueueManager(object):
         :param list new_list: nested list with hostname and source e.g. [ ["google.com", ["alexa-top-1m", ] ], ]
         """
         # queue is not even through ?
-        if len(self._host_queue.queue) < self._counter:
+        if len(self._host_queue.queue) > self._counter:
             return
 
         self.empty_queue()
@@ -91,14 +94,17 @@ class QueueManager(object):
             self._host_source_dict[item[0]] = item[1]
             self._host_queue.put(item[0])
 
+
     def next_result(self):
         """
         Getting next result from result_queue.
 
         :return tuple: ({sslyze result}, [source,])
         """
-        res = self.result().get()
-        return res, self._host_source_dict[res[0][0]]
+        res = self._result_queue.get()
+        target = res["target"]
+        res["source"] = self._host_source_dict[target[0]]
+        return res
 
     def put_result(self, result):
         """
@@ -145,7 +151,7 @@ class QueueServer(BaseManager):
     The QueueServer ...
     """
     def __init__(self):
-        self.register('queue_manager', callable=lambda: QueueManager())
+        self.register('queue_manager', callable=QueueManager())
         BaseManager.__init__(self, address=(settings.SERVER_ADDRESS, settings.SERVER_PORT),
                              authkey=settings.SERVER_AUTH)
 

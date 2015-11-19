@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 This worker analyzes hosts similarly to how SSLyze does.
 """
@@ -25,11 +24,10 @@ class WorkerProcess(Process):
     """
     This class checks hosts from the host_queue with the settings specified in settings.py.
     """
-    def __init__(self, host_queue, result_queue, available_commands):
+    def __init__(self, qm, available_commands):
         Process.__init__(self)
 
-        self.host_queue = host_queue
-        self.result_queue = result_queue
+        self._qm = qm
         self.available_commands = available_commands
 
     def run(self):
@@ -40,11 +38,13 @@ class WorkerProcess(Process):
 
         while True:
             try:
-                hostname = self.host_queue.get(timeout=settings.HOST_QUEUE_TIMEOUT)
-            except:  # If a timeout happens, an exception will always be thrown, hence why we just break here
+                hostname = self._qm.next_host()
+            except Exception as e:  # If a timeout happens, an exception will always be thrown, hence why we just break here
+                print(e)
                 break
 
             target = self._test_server(hostname)
+            result_dict = ((hostname, None, None), [])
             if target:
                 result_dict = dict(target=target, result=[])
 
@@ -52,7 +52,7 @@ class WorkerProcess(Process):
                     result = self._process_command(target, command)
                     result_dict["result"].append(result.get_raw_result())
 
-            self.result_queue.put(result_dict)
+            self._qm.put_result(result_dict)
 
     def _process_command(self, target, command):
             plugin_instance = self.available_commands[command]()
@@ -66,7 +66,7 @@ class WorkerProcess(Process):
         try:
             target = ServersConnectivityTester._test_server(hostname, settings.SHARED_SETTINGS)
         except InvalidTargetError as e:
-            self.result_queue.put(((hostname, None, None, None), None, e.get_error_txt()))
+            self._qm.put_result(((hostname, None, None, None), None, e.get_error_txt()))
             return
         return target
 
@@ -86,8 +86,7 @@ def main():
     # TODO use queue from remote queue manager, this is just for testing purposes
 
     c = QueueClient()
-    host_queue = c.host_queue()
-    result_queue = c.result_queue()
+    qm = c.queue_manager()
 
     # host_queue = JoinableQueue()
     # result_queue = JoinableQueue()
@@ -100,7 +99,7 @@ def main():
     process_list = []
 
     for _ in xrange(settings.NUMBER_PROCESSES):
-        p = WorkerProcess(host_queue, result_queue, available_commands)
+        p = WorkerProcess(qm, available_commands)
         p.start()
         process_list.append(p)
 
