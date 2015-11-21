@@ -7,6 +7,7 @@ __license__ = ""  # TODO ?
 __version__ = "0.1"
 
 import sys
+import signal
 from multiprocessing import Process, JoinableQueue
 import settings
 from queue_manager import QueueClient
@@ -18,6 +19,9 @@ except ImportError as e:
     print str(e) + '\nERROR: Could not import nassl Python module. Did you clone SSLyze\'s repo ? \n' +\
     'Please download the right pre-compiled package as described in the README.\n'
     sys.exit()
+
+# Global so we can terminate processes when catching SIGINT
+process_list = []
 
 
 class WorkerProcess(Process):
@@ -72,7 +76,16 @@ class WorkerProcess(Process):
         return target
 
 
+def sigint_handler(signum, frame):
+    for p in process_list:
+        p.terminate()
+    sys.exit()
+
+
 def main():
+
+    signal.signal(signal.SIGINT, sigint_handler)
+
     ##########################
     # PLUGINS INITIALIZATION #
     ##########################
@@ -96,9 +109,6 @@ def main():
     ##########################
     # PROCESS INITIALIZATION #
     ##########################
-
-    process_list = []
-
     for _ in xrange(settings.NUMBER_PROCESSES):
         p = WorkerProcess(qm, available_commands)
         p.start()
