@@ -23,32 +23,4 @@ There are several modules, which working separately from each other:
 |
 
 
-::
-
-                           +------------------+
-                           |                  |
-                           |   INPUT WORKER   |
-                           |                  |
-                           +-------+----------+
-                                   |
-                                   | Hostname, Source
-                                   v
-
-                           +------------------+
-                           |                  |   Hostname       +------------------+
-                           |  QUEUE MANAGER   +----------------> |                  |
-                           |                  |                  |  SSLYZE WORKER   |
-                           |     SERVER       | <----------------+                  |
-                           |                  |       Result     +------------------+
-                           +--------+---------+
-                                    |
-                                    | Result, Source
-        +-------+                   v
-        |       |
-        | Mongo |          +------------------+
-        |       |          |                  |
-        |  DB   | <--------+  RESULT WORKER   |
-        |       |          |                  |
-        +-------+          +------------------+
-
-
+.. figure::  _static/schema.jpg

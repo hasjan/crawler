@@ -159,4 +159,5 @@ class QueueServer(BaseManager):
 if __name__ == "__main__":
     m = QueueServer()
     s = m.get_server()
+    print("starting QueueServer at %s:%s" % (settings.SERVER_ADDRESS, settings.SERVER_PORT))
     s.serve_forever()

@@ -56,6 +56,43 @@
             
   <div class="section" id="module-hft_tls_crawler">
 <span id="hft-tls-crawler-module"></span><h1>hft_tls_crawler module<a class="headerlink" href="#module-hft_tls_crawler" title="Permalink to this headline">¶</a></h1>
+<p>This module starts all required worker processes in the correct order.
+Just run:</p>
+<blockquote>
+<div><div class="highlight-python"><div class="highlight"><pre>$ python hft_tls_crawler.py
+</pre></div>
+</div>
+</div></blockquote>
+<dl class="data">
+<dt id="hft_tls_crawler.PYTHON_PATH">
+<code class="descname">PYTHON_PATH</code><em class="property"> = ''</em><a class="headerlink" href="#hft_tls_crawler.PYTHON_PATH" title="Permalink to this definition">¶</a></dt>
+<dd><p>the path to your python executable</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="hft_tls_crawler.MODULE_LIST">
+<code class="descname">MODULE_LIST</code><em class="property"> = ['queue_manager.py', 'input_worker.py', 'sslyze_worker.py', 'result_worker.py']</em><a class="headerlink" href="#hft_tls_crawler.MODULE_LIST" title="Permalink to this definition">¶</a></dt>
+<dd><p>all modules in this list will be started in separate process</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="hft_tls_crawler.LOG_MODULES">
+<code class="descname">LOG_MODULES</code><em class="property"> = ['queue_manager.py', 'input_worker.py', 'sslyze_worker.py', 'result_worker.py']</em><a class="headerlink" href="#hft_tls_crawler.LOG_MODULES" title="Permalink to this definition">¶</a></dt>
+<dd><p>the output of the modules in this list will be logged to console or to file</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="hft_tls_crawler.RUNNING_PROCESSES">
+<code class="descname">RUNNING_PROCESSES</code><em class="property"> = []</em><a class="headerlink" href="#hft_tls_crawler.RUNNING_PROCESSES" title="Permalink to this definition">¶</a></dt>
+<dd><p>holds the running processes</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="hft_tls_crawler.main">
+<code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/hft_tls_crawler.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#hft_tls_crawler.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Starts all modules which are listed in <a class="reference internal" href="#hft_tls_crawler.MODULE_LIST" title="hft_tls_crawler.MODULE_LIST"><code class="xref py py-data docutils literal"><span class="pre">MODULE_LIST</span></code></a>.</p>
+</dd></dl>
+
 </div>
 
 

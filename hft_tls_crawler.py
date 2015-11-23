@@ -1,5 +1,9 @@
 """
 This module starts all required worker processes in the correct order.
+Just run:
+    ::
+
+        $ python hft_tls_crawler.py
 """
 
 import os
@@ -23,7 +27,7 @@ LOG_MODULES = MODULE_LIST
 RUNNING_PROCESSES = []
 
 
-def enqueue_out(stream, module, q):
+def _enqueue_out(stream, module, q):
     """
     iterate over each line in stdout and put line to queue.
 
@@ -36,7 +40,7 @@ def enqueue_out(stream, module, q):
         q.put((module, "stdout", line.rstrip(b'\r\n')))
 
 
-def enqueue_err(stream, module, q):
+def _enqueue_err(stream, module, q):
     """
     iterate over each line in stderr and put line to queue.
 
@@ -49,7 +53,7 @@ def enqueue_err(stream, module, q):
         q.put((module, "stderr", line.rstrip(b'\r\n')))
 
 
-def sigint_handler(signum, frame):
+def _sigint_handler(signum, frame):
     """
     handles keyboard interrupt
     :param signum:
@@ -65,8 +69,11 @@ def sigint_handler(signum, frame):
 
 
 def main():
+    """
+    Starts all modules which are listed in :data:`~hft_tls_crawler.MODULE_LIST`.
+    """
 
-    signal.signal(signal.SIGINT, sigint_handler)
+    signal.signal(signal.SIGINT, _sigint_handler)
 
     q = Queue()
 
@@ -79,11 +86,11 @@ def main():
 
         print("%s is running with PID %s" % (module, p.pid))
 
-        t = Thread(target=enqueue_out, args=(p.stdout, module, q))
+        t = Thread(target=_enqueue_out, args=(p.stdout, module, q))
         t.daemon = True  # thread dies with the program
         t.start()
 
-        t = Thread(target=enqueue_err, args=(p.stderr, module, q))
+        t = Thread(target=_enqueue_err, args=(p.stderr, module, q))
         t.daemon = True  # thread dies with the program
         t.start()
 

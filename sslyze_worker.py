@@ -8,7 +8,7 @@ __version__ = "0.1"
 
 import sys
 import signal
-from multiprocessing import Process, JoinableQueue
+from multiprocessing import Process
 import settings
 from queue_manager import QueueClient
 from sslyze.plugins import PluginsFinder
@@ -41,11 +41,7 @@ class WorkerProcess(Process):
             plugin_class._shared_settings = settings.SHARED_SETTINGS
 
         while True:
-            try:
-                hostname = self._qm.next_host()
-            except Exception as e:  # If a timeout happens, an exception will always be thrown, hence why we just break here
-                print(e)
-                break
+            hostname = self._qm.next_host()
 
             target = self._test_server(hostname)
 
@@ -62,34 +58,36 @@ class WorkerProcess(Process):
             plugin_instance = self.available_commands[command]()
             try:  # Process the task
                 result = plugin_instance.process_task(target, command, True)
-            except Exception as e:  # Generate txt and xml results
-                result = e  # TODO format exception
+            except Exception as err:  # Generate txt and xml results
+                result = err  # TODO format exception
             return result
 
     def _test_server(self, hostname):
         try:
             target = ServersConnectivityTester._test_server(hostname, settings.SHARED_SETTINGS)
-        except InvalidTargetError as e:
-            result_dict = dict(target=(hostname, None, None), result=e.get_error_txt())
+        except InvalidTargetError as err:
+            result_dict = dict(target=(hostname, None, None), result=err.get_error_txt())
             self._qm.put_result(result_dict)
             return
         return target
 
 
-def sigint_handler(signum, frame):
+def _sigint_handler(signum, frame):
     for p in process_list:
         p.terminate()
     sys.exit()
 
 
 def main():
+    """
+    Starts as many sslyze worker processes as specified in :mod:`settings`.
+    """
 
-    signal.signal(signal.SIGINT, sigint_handler)
+    signal.signal(signal.SIGINT, _sigint_handler)
 
     ##########################
     # PLUGINS INITIALIZATION #
     ##########################
-
     sslyze_plugins = PluginsFinder()
     available_plugins = sslyze_plugins.get_plugins()
     available_commands = sslyze_plugins.get_commands()
@@ -97,14 +95,8 @@ def main():
     ########################
     # QUEUE INITIALIZATION #
     ########################
-    # TODO use queue from remote queue manager, this is just for testing purposes
-
     c = QueueClient()
     qm = c.queue_manager()
-
-    # host_queue = JoinableQueue()
-    # result_queue = JoinableQueue()
-    # host_queue.put("google.com")
 
     ##########################
     # PROCESS INITIALIZATION #

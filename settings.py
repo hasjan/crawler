@@ -1,32 +1,46 @@
-__author__ = '32hoda1bif'
+"""
+This module contains global settings for all modules.
+"""
 
 
-HOST_QUEUE_TIMEOUT = 30
-
-NUMBER_PROCESSES = 1
-
+#: the bind address of the :class:`~queue_manager.QueueServer`
 SERVER_ADDRESS = 'localhost'
+
+#: the bind port of the :class:`~queue_manager.QueueServer`
 SERVER_PORT = 50001
+
+#: the authentication string of the :class:`~queue_manager.QueueServer`
 SERVER_AUTH = b'abc'
 
 
+#: the number of sslyze worker processes
+NUMBER_PROCESSES = 1
 
+#: a list of commands that sslyze will be used for scanning.
+#:  available commands are:
+#:      ["tlsv1_2", "tlsv1_1", "tlsv1", "sslv3", "sslv2", "reneg", "hsts", "resum", "resum_rate",
+#:      "heartbleed", "chrome_sha1", "compression", "certinfo"]
+#: For details see `SSLyze <https://github.com/nabla-c0d3/sslyze>`_.
 COMMAND_LIST = [
-    # "reneg",
     "tlsv1_2",
-    # "compression",
-    # "certinfo",
     "tlsv1_1",
+    "tlsv1",
+    "sslv3",
+    "sslv2",
+    # "reneg",
     # "hsts",
     # "resum",
     # "resum_rate",
     # "heartbleed",
     # "chrome_sha1",
-    "sslv3",
-    "sslv2",
-    "tlsv1",
+    # "compression",
+    # "certinfo",
 ]
 
+
+
+#: this are shared settings used by sslyze.
+#:   For details see `SSLyze <https://github.com/nabla-c0d3/sslyze>`_.
 SHARED_SETTINGS = {
     'ca_file': None,
     'certinfo': 'basic',

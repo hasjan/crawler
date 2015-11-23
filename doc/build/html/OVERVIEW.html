@@ -87,32 +87,8 @@
 <div class="line"><br /></div>
 <div class="line"><br /></div>
 </div>
-<div class="highlight-python"><div class="highlight"><pre>                   +------------------+
-                   |                  |
-                   |   INPUT WORKER   |
-                   |                  |
-                   +-------+----------+
-                           |
-                           | Hostname, Source
-                           v
-
-                   +------------------+
-                   |                  |   Hostname       +------------------+
-                   |  QUEUE MANAGER   +----------------&gt; |                  |
-                   |                  |                  |  SSLYZE WORKER   |
-                   |     SERVER       | &lt;----------------+                  |
-                   |                  |       Result     +------------------+
-                   +--------+---------+
-                            |
-                            | Result, Source
-+-------+                   v
-|       |
-| Mongo |          +------------------+
-|       |          |                  |
-|  DB   | &lt;--------+  RESULT WORKER   |
-|       |          |                  |
-+-------+          +------------------+
-</pre></div>
+<div class="figure">
+<img alt="_images/schema.jpg" src="_images/schema.jpg" />
 </div>
 </div>
 

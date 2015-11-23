@@ -55,7 +55,7 @@
 <p>This worker analyzes hosts similarly to how SSLyze does.</p>
 <dl class="class">
 <dt id="sslyze_worker.WorkerProcess">
-<em class="property">class </em><code class="descname">WorkerProcess</code><span class="sig-paren">(</span><em>host_queue</em>, <em>result_queue</em>, <em>available_commands</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sslyze_worker.html#WorkerProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sslyze_worker.WorkerProcess" title="Permalink to this definition">¶</a></dt>
+<em class="property">class </em><code class="descname">WorkerProcess</code><span class="sig-paren">(</span><em>qm</em>, <em>available_commands</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/sslyze_worker.html#WorkerProcess"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sslyze_worker.WorkerProcess" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">multiprocessing.process.Process</span></code></p>
 <p>This class checks hosts from the host_queue with the settings specified in settings.py.</p>
 <dl class="method">
@@ -68,7 +68,8 @@
 <dl class="function">
 <dt id="sslyze_worker.main">
 <code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/sslyze_worker.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#sslyze_worker.main" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Starts as many sslyze worker processes as specified in <a class="reference internal" href="settings.html#module-settings" title="settings"><code class="xref py py-mod docutils literal"><span class="pre">settings</span></code></a>.</p>
+</dd></dl>
 
 </div>
 

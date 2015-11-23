@@ -56,6 +56,55 @@
             
   <div class="section" id="module-settings">
 <span id="settings-module"></span><h1>settings module<a class="headerlink" href="#module-settings" title="Permalink to this headline">¶</a></h1>
+<p>This module contains global settings for all modules.</p>
+<dl class="data">
+<dt id="settings.SERVER_ADDRESS">
+<code class="descname">SERVER_ADDRESS</code><em class="property"> = 'localhost'</em><a class="headerlink" href="#settings.SERVER_ADDRESS" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bind address of the <a class="reference internal" href="queue_manager.html#queue_manager.QueueServer" title="queue_manager.QueueServer"><code class="xref py py-class docutils literal"><span class="pre">QueueServer</span></code></a></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="settings.SERVER_PORT">
+<code class="descname">SERVER_PORT</code><em class="property"> = 50001</em><a class="headerlink" href="#settings.SERVER_PORT" title="Permalink to this definition">¶</a></dt>
+<dd><p>the bind port of the <a class="reference internal" href="queue_manager.html#queue_manager.QueueServer" title="queue_manager.QueueServer"><code class="xref py py-class docutils literal"><span class="pre">QueueServer</span></code></a></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="settings.SERVER_AUTH">
+<code class="descname">SERVER_AUTH</code><em class="property"> = 'abc'</em><a class="headerlink" href="#settings.SERVER_AUTH" title="Permalink to this definition">¶</a></dt>
+<dd><p>the authentication string of the <a class="reference internal" href="queue_manager.html#queue_manager.QueueServer" title="queue_manager.QueueServer"><code class="xref py py-class docutils literal"><span class="pre">QueueServer</span></code></a></p>
+</dd></dl>
+
+<dl class="data">
+<dt id="settings.NUMBER_PROCESSES">
+<code class="descname">NUMBER_PROCESSES</code><em class="property"> = 1</em><a class="headerlink" href="#settings.NUMBER_PROCESSES" title="Permalink to this definition">¶</a></dt>
+<dd><p>the number of sslyze worker processes</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="settings.COMMAND_LIST">
+<code class="descname">COMMAND_LIST</code><em class="property"> = ['tlsv1_2', 'tlsv1_1', 'tlsv1', 'sslv3', 'sslv2']</em><a class="headerlink" href="#settings.COMMAND_LIST" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>a list of commands that sslyze will be used for scanning.</dt>
+<dd><dl class="first last docutils">
+<dt>available commands are:</dt>
+<dd>[&#8220;tlsv1_2&#8221;, &#8220;tlsv1_1&#8221;, &#8220;tlsv1&#8221;, &#8220;sslv3&#8221;, &#8220;sslv2&#8221;, &#8220;reneg&#8221;, &#8220;hsts&#8221;, &#8220;resum&#8221;, &#8220;resum_rate&#8221;,
+&#8220;heartbleed&#8221;, &#8220;chrome_sha1&#8221;, &#8220;compression&#8221;, &#8220;certinfo&#8221;]</dd>
+</dl>
+</dd>
+</dl>
+<p>For details see <a class="reference external" href="https://github.com/nabla-c0d3/sslyze">SSLyze</a>.</p>
+</dd></dl>
+
+<dl class="data">
+<dt id="settings.SHARED_SETTINGS">
+<code class="descname">SHARED_SETTINGS</code><em class="property"> = {'ca_file': None, 'certinfo': 'basic', 'starttls': None, 'resum': True, 'resum_rate': None, 'http_get': True, 'xml_file': None, 'compression': True, 'tlsv1': True, 'targets_in': None, 'keyform': 1, 'https_tunnel': None, 'chrome_sha1': None, 'sslv3': True, 'sslv2': True, 'hsts': None, 'nb_retries': 4, 'heartbleed': True, 'sni': None, 'https_tunnel_host': None, 'regular': False, 'key': None, 'reneg': True, 'tlsv1_2': True, 'tlsv1_1': True, 'hide_rejected_ciphers': True, 'quiet': None, 'keypass': '', 'cert': None, 'timeout': 5, 'xmpp_to': None}</em><a class="headerlink" href="#settings.SHARED_SETTINGS" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>this are shared settings used by sslyze.</dt>
+<dd>For details see <a class="reference external" href="https://github.com/nabla-c0d3/sslyze">SSLyze</a>.</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
